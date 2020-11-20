@@ -52,7 +52,7 @@ export class CategoryComponent implements OnInit {
   }
   updateCategory(Object: any) {
     debugger;
-    this._Http.put(this.Url, Object).subscribe((Response) => {
+    this._Http.put(this.Url + 'DeleteData', Object).subscribe((Response) => {
       this.getAllCategories();
     });
 
