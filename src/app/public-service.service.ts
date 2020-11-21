@@ -5,14 +5,26 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class PublicServiceService {
-  Url : string="https://localhost:44307/api/category/";
+export class PublicService {
+  BaseUrl: string = "https://localhost:44307/api/";
 
   constructor(
-    private _Http : HttpClient
-    ) { }
+    private _Http: HttpClient
+  ) { }
 
-    getAll(){
-     return this._Http.get(this.Url).subscribe(x=>x);
-    }
+  getAll(ControllerName: any, MethodName: any) {
+    return this._Http.get(this.BaseUrl + ControllerName + '/' + MethodName).pipe(x => x);
+  }
+
+  Add(ControllerName: any, MethodName: any, Object: any) {
+    return this._Http.post(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
+  }
+
+  Delete(ControllerName: any, MethodName: any, Id: number) {
+    return this._Http.delete(this.BaseUrl + ControllerName + '/' + MethodName + '?id=' + Id).pipe(x => x);
+  }
+
+  Update(ControllerName: any, MethodName: any, Object: any) {
+    return this._Http.post(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
+  }
 }

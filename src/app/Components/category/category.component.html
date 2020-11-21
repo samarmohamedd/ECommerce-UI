@@ -1,20 +1,27 @@
-<ul>
-    <li *ngFor="let cat of Categories">{{cat.Name}} <button class="btn btn-danger"  (click)="DeleteCategory(cat)"> Delete</button></li>
-</ul>
+<button class="btn btn-success" routerLink="/AddCategory" style="float: right;">Create New Category</button>
 
-<form #CtForm=ngForm> 
-    <div class="row">
-        <div class="col-md-6">
-            <label>Name</label>
-            <input type="text" name="Name" id="Name" [(ngModel)]="CategoryObject.Name">
-        </div>
-
-        <div class="col-md-6">
-            <label>Description</label>
-            <input type="text" name="Descripton" id="Descripton" [(ngModel)]="CategoryObject.Descripton">
-        </div>
-    </div>
-
-    <button class="btn btn-primary" (click)="AddCategory()">Save </button>
-    
-</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Parent Name</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cat of Categories; let i=index">
+            <td>{{i}}</td>
+            <td>{{cat.ParentName}} </td>
+            <td>{{cat.Name}} </td>
+            <td>{{cat.Descripton}} </td>
+            <td>
+                <button class="btn btn-primary" (click)="DeleteCategory(cat)">
+                    Edit</button> |
+                <button class="btn btn-danger" (click)="DeleteCategory(cat)">
+                    Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

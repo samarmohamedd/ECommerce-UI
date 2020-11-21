@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICategory } from '../../Interfaces/ICategory';
-import { PublicServiceService } from '../../public-service.service';
+import { PublicService } from '../../public-service.service';
 
 @Component({
   selector: 'app-category',
@@ -16,13 +16,12 @@ export class CategoryComponent implements OnInit {
     Descripton: "",
   };
   Name: string = "";
+  checked: boolean = true;
 
 
-  Url: string = "https://localhost:44307/api/category/";
 
   constructor(
-    private _Http: HttpClient,
-    private _PublicService: PublicServiceService) {
+    private _PublicService: PublicService) {
 
   }
 
@@ -30,29 +29,22 @@ export class CategoryComponent implements OnInit {
     this.getAllCategories();
   }
   getAllCategories() {
-    this._Http.get(this.Url + 'ViewGetAll').subscribe((Response) => {
-      this.Categories = Response
+    this._PublicService.getAll("Category", 'ViewGetAll').subscribe(res => {
+      this.Categories = res;
     });
 
   }
 
-  AddCategory() {
-    this._Http.post(this.Url + 'AddData', this.CategoryObject).subscribe((Response) => {
-      this.Categories = Response;
-      this.getAllCategories();
-    });
-
-  }
   DeleteCategory(Object: any) {
     debugger;
-    this._Http.delete(this.Url + 'DeleteData' + '?id=' + Object.Id).subscribe((Response) => {
+    this._PublicService.Delete("Category", 'DeleteData', Object.Id).subscribe((Response) => {
       this.getAllCategories();
     });
 
   }
   updateCategory(Object: any) {
     debugger;
-    this._Http.put(this.Url + 'DeleteData', Object).subscribe((Response) => {
+    this._PublicService.Update("Category", "UpdateData", Object).subscribe((Response) => {
       this.getAllCategories();
     });
 
