@@ -1,0 +1,64 @@
+.page-container{
+    height: 100%;
+display: flex;
+}
+
+.sidebar{
+    height: 100%;
+    width: 20%;
+    background-color: #2C698D;
+}
+
+.list-items{
+  padding-top: 15%;
+}
+
+.list-item{
+font-size: 20px;
+color: white;
+padding: 10px 20px;
+display: flex;
+justify-content: center;
+cursor: pointer;
+position: relative;
+
+}
+.list-item:hover{
+    color: white;  
+      }
+
+
+.list-item::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1%;
+    background-color: #272643;
+opacity: 0;  
+transform: scaleY(0);
+transition: transform 0.2s, opacity 0.2s;
+
+    }
+    .list-item.Selected::before{
+        opacity: 1;  
+transform: scaleY(1);
+
+          }
+          .list-item:hover::before{
+            opacity: 0.5;  
+    transform: scaleY(0.5) scaleX(5);
+    
+              }
+  .Page-content-container{
+      padding: 50px;
+      width: 100%;
+  }
+  a{
+      text-decoration: none;
+  }
+  .list-item.Selected{
+      background-color: #bae8e8;
+
+  }

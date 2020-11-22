@@ -17,11 +17,87 @@
             <td>{{cat.Name}} </td>
             <td>{{cat.Descripton}} </td>
             <td>
-                <button class="btn btn-primary" (click)="DeleteCategory(cat)">
+                <button class="btn btn-primary" (click)="openEditModal(EditModal,cat.Id)">
                     Edit</button> |
-                <button class="btn btn-danger" (click)="DeleteCategory(cat)">
+                <button class="btn btn-danger" (click)="openDeleteModal(DeleteModal,cat.Id)">
                     Delete</button>
             </td>
         </tr>
     </tbody>
 </table>
+
+
+<ng-template #EditModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="CategoryObject.Name" required class="form-control" type="text" name="Name"
+                        id="Name" ngModel>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Parent Name</label>
+                    <mat-select [(ngModel)]="ParentName" placeholder="Please Select one...">
+                        <mat-option *ngFor="let cat of Categories" value="{{cat.Name}}">
+                            {{cat.Name}}
+                        </mat-option>
+                    </mat-select>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input [(ngModel)]="CategoryObject.Descripton" required class="form-control" type="text"
+                        name="Descripton" id="Descripton" ngModel>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+                (click)="updateCategory(CategoryObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #DeleteModal let-Dmodal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            Are you sure ,you want delete this.
+        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
+                (click)="Dmodal.close('Save click')">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
+                (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>

@@ -2,3 +2,13 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body{
+    background-color:  #FFFFFF;
+}
+
+html , body{
+    height: 100%;
+margin: 0%;
+
+}
