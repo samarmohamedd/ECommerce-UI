@@ -29,11 +29,8 @@ export class AddCategoryComponent implements OnInit {
   }
 
   AddCategory() {
-    this.CategoryObject = {
-      Name: this.Name,
-      ParentName: this.ParentName,
-      Descripton: this.Descripton,
-    };
+
+    debugger;
     this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
       this.Categories = Response;
       this._router.navigate(['/Category']);

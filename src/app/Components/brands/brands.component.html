@@ -1,0 +1,130 @@
+<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Brand</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let Item of Brands; let i=index">
+            <td>{{i}}</td>
+            <td>{{Item.Name}} </td>
+            <td>{{Item.Descripton}} </td>
+            <td>
+                <button class="btn btn-primary" (click)="openEditModal(EditModal,Item.Id)">
+                    Edit</button> |
+                <button class="btn btn-danger" (click)="openDeleteModal(DeleteModal,Item.Id)">
+                    Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<ng-template #AddModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add Brand</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
+                        id="Name" ngModel>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
+                        name="Descripton" id="Descripton" ngModel>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+                (click)="AddBrand(BrandObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #EditModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Brand</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
+                        id="Name" ngModel>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
+                        name="Descripton" id="Descripton" ngModel>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+                (click)="updateBrand(BrandObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #DeleteModal let-Dmodal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Brand</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            Are you sure ,you want delete this.
+        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
+                (click)="DeleteBrand(BrandObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
+                (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>

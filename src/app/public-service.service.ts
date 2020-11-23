@@ -25,6 +25,6 @@ export class PublicService {
   }
 
   Update(ControllerName: any, MethodName: any, Object: any) {
-    return this._Http.post(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
+    return this._Http.put(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
   }
 }

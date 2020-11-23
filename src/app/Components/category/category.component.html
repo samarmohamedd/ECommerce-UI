@@ -1,31 +1,47 @@
 <button class="btn btn-success" routerLink="/AddCategory" style="float: right;">Create New Category</button>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Parent Name</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let cat of Categories; let i=index">
-            <td>{{i}}</td>
-            <td>{{cat.ParentName}} </td>
-            <td>{{cat.Name}} </td>
-            <td>{{cat.Descripton}} </td>
-            <td>
-                <button class="btn btn-primary" (click)="openEditModal(EditModal,cat.Id)">
-                    Edit</button> |
-                <button class="btn btn-danger" (click)="openDeleteModal(DeleteModal,cat.Id)">
-                    Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<br>
+<br>
+<br>
+<div>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
+    <mat-table [dataSource]="Categories" class="mat-elevation-z8">
+        <ng-container matColumnDef="Id">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ParentName">
+            <mat-header-cell *matHeaderCellDef> Parent Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.ParentName}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Descripton">
+            <mat-header-cell *matHeaderCellDef> Descripton </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Descripton}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Delete">
+            <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
+            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
+                    <span class="fa fa-trash"></span>
+                </i>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
+
+    </mat-table>
+    <mat-paginator (page)="syncPrimaryPaginator($event)" [pageSize]="paginator.pageSize"
+        [pageIndex]="paginator.pageIndex" [length]="paginator.length" [pageSizeOptions]="paginator.pageSizeOptions">
+    </mat-paginator>
+</div>
 
 <ng-template #EditModal let-modal>
     <div class="modal-header">
@@ -45,12 +61,18 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Parent Name</label>
-                    <mat-select [(ngModel)]="ParentName" placeholder="Please Select one...">
-                        <mat-option *ngFor="let cat of Categories" value="{{cat.Name}}">
-                            {{cat.Name}}
-                        </mat-option>
-                    </mat-select>
+                    <mat-form-field>
+                        <mat-select [(value)]="ParentName">
+                            <mat-option *ngFor="let option of Categories" [value]="option.Id">{{ option.Name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select>
+                            <mat-option *ngFor="let food of Categories" [value]="food.Id">
+                                {{food.Name}}
+                            </mat-option>
+                        </mat-select>
 
+                    </mat-form-field>
                 </div>
             </div>
         </div>
@@ -93,7 +115,7 @@
     <div class="row text-center  modal-footer">
         <div class="col-md-offset-3 col-md-3">
             <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
-                (click)="Dmodal.close('Save click')">Save</button>
+                (click)="DeleteCategory(CategoryObject)">Save</button>
         </div>
         <div class=" col-md-3">
             <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
@@ -101,3 +123,13 @@
         </div>
     </div>
 </ng-template>
+
+<style>
+    button {
+        margin: 16px 8px;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

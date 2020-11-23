@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICategory } from '../../Interfaces/ICategory';
 import { PublicService } from '../../public-service.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
 
 @Component({
   selector: 'app-category',
@@ -16,14 +25,24 @@ export class CategoryComponent implements OnInit {
     ParentName: "",
     Descripton: "",
   };
-  Name: string = "";
-  ParentName: string = "";
 
-  checked: boolean = true;
   closeResult: string = '';
 
+  displayedColumns: string[] = [
+    'Id',
+    'ParentName',
+    'Name',
+    'Descripton',
+    'Delete'
+  ];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
+  syncPrimaryPaginator(event: PageEvent) {
+    this.paginator.pageIndex = event.pageIndex;
+    this.paginator.pageSize = event.pageSize;
+    this.paginator.page.emit(event);
+  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
@@ -36,27 +55,18 @@ export class CategoryComponent implements OnInit {
   getAllCategories() {
     this._PublicService.getAll("Category", 'ViewGetAll').subscribe(res => {
       this.Categories = res;
-      debugger;
+      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Categories);
+
     });
 
   }
-  getDimensionsByFind(id: number) {
-    debugger;
-  }
-
-
-  DeleteCategory(Object: any) {
-    debugger;
-    this._PublicService.Delete("Category", 'DeleteData', Object.Id).subscribe((Response) => {
-      this.getAllCategories();
-    });
-
-  }
-
+  //Edit Modal
   updateCategory(Object: any) {
-    debugger;
+
     this._PublicService.Update('Category', 'UpdateData', Object).subscribe((Response) => {
       this.Categories = Response;
+      this.modalService.dismissAll();
+      this.getAllCategories();
 
     });
 
@@ -64,20 +74,34 @@ export class CategoryComponent implements OnInit {
   openEditModal(content: any, Id: any) {
     const result: ICategory = this.Categories.find((obj: any) => obj.Id === Id);
     this.CategoryObject = result;
-    debugger;
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
     });
   }
 
-  openDeleteModal(content: any, Id: any) {
-    const result: ICategory = this.Categories.find((obj: any) => obj.Id === Id);
-    this.CategoryObject = result;
+  //Delete Modal
+  DeleteCategory(Object: any) {
     debugger;
+    this._PublicService.Delete("Category", 'DeleteData', Object.Id).subscribe((Response) => {
+      this.modalService.dismissAll();
+      this.getAllCategories();
+    });
+
+  }
+  openDeleteModal(content: any, Object: any) {
+    debugger;
+
+    const result: ICategory = this.Categories.find((obj: any) => obj.Id === Object.Id);
+    this.CategoryObject = result;
+
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
     });
   }
+
+  //
+
 }

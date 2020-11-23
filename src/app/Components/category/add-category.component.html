@@ -5,13 +5,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Name</label>
-                        <input #Name="ngModel" required class="form-control" type="text" name="Name" id="Name" ngModel
-                            max="10">
-                        <div class="alert alert-danger" *ngIf="Name.touched && Name.invalid">
-                            <div *ngIf="Name.errors.required">name is required</div>
-                            <div *ngIf="Name.errors.max">Maximum Length is 10</div>
+                        <input required class="form-control" type="text" name="Name" id="Name"
+                            [(ngModel)]="CategoryObject.Name">
 
-                        </div>
                     </div>
                 </div>
 
@@ -19,11 +15,8 @@
                     <div class="form-group">
 
                         <label>Description</label>
-                        <input #Description="ngModel" required class="form-control" type="text" name="Descripton"
-                            id="Descripton" ngModel>
-                        <div class="alert alert-danger" *ngIf="Description.touched && Description.invalid">description
-                            is
-                            required</div>
+                        <input [(ngModel)]="CategoryObject.Descripton" required class="form-control" type="text"
+                            name="Descripton" id="Descripton">
 
                     </div>
                 </div>
@@ -38,7 +31,8 @@
                             </div>
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupFileAddon01">
-                                    <i class="far fa-image"></i>
+                                    <i class="fa fa-image"></i>
+                                    <fa-icon icon="film"></fa-icon>
                                 </span>
                             </div>
                         </div>
