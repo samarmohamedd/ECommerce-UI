@@ -5,6 +5,7 @@ import { PublicService } from '../../public-service.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -37,6 +38,8 @@ export class CategoryComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
 
   syncPrimaryPaginator(event: PageEvent) {
     this.paginator.pageIndex = event.pageIndex;

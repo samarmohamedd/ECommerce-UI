@@ -9,12 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomFormsModule } from 'ng2-validation';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule, MatTabGroup } from '@angular/material/tabs'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,12 +34,21 @@ import { BrandsComponent } from './Components/brands/brands.component';
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons';
 import { faFont } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { VendorComponent } from './Components/vendor/vendor.component';
+import { StockComponent } from './Components/stock/stock.component';
+import { ProductComponent } from './Components/product/product.component';
+import { StockItemsComponent } from './Components/stock-items/stock-items.component';
 var router = RouterModule.forRoot([
   { path: '', component: HomeComponent },
   { path: 'Home', component: HomeComponent },
   { path: 'Category', component: CategoryComponent },
   { path: 'AddCategory', component: AddCategoryComponent },
   { path: 'Brand', component: BrandsComponent },
+  { path: 'Vendor', component: VendorComponent },
+  { path: 'Stock', component: StockComponent },
+  { path: 'Product', component: ProductComponent },
+  { path: 'Product', component: ProductComponent },
+  { path: 'StockItems', component: StockItemsComponent },
 
 
 ])
@@ -48,7 +60,11 @@ var router = RouterModule.forRoot([
     HomeComponent,
     AddCategoryComponent,
     SideNavBarComponent,
-    BrandsComponent
+    BrandsComponent,
+    VendorComponent,
+    StockComponent,
+    ProductComponent,
+    StockItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +79,8 @@ var router = RouterModule.forRoot([
     MatCheckboxModule,
     MatSelectModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatInputModule,
   ],
   providers: [PublicService],
   bootstrap: [AppComponent]

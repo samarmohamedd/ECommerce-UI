@@ -1,10 +1,11 @@
 <button class="btn btn-success" routerLink="/AddCategory" style="float: right;">Create New Category</button>
-
-<br>
-<br>
-<br>
-<div>
-    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item   " aria-current="page">Category</li>
+    </ol>
+</nav>
+<div class="example-table-container">
 
     <mat-table [dataSource]="Categories" class="mat-elevation-z8">
         <ng-container matColumnDef="Id">
@@ -38,9 +39,8 @@
         <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
 
     </mat-table>
-    <mat-paginator (page)="syncPrimaryPaginator($event)" [pageSize]="paginator.pageSize"
-        [pageIndex]="paginator.pageIndex" [length]="paginator.length" [pageSizeOptions]="paginator.pageSizeOptions">
-    </mat-paginator>
+    <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
+
 </div>
 
 <ng-template #EditModal let-modal>

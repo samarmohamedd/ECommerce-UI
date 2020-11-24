@@ -1,0 +1,208 @@
+
+<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Product</button>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item   " aria-current="page">Products</li>
+    </ol>
+</nav>
+<div class="example-table-container">
+
+    <mat-table [dataSource]="Products" class="mat-elevation-z8">
+        <ng-container matColumnDef="Id">
+            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Name}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Description}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="CategoryName">
+            <mat-header-cell *matHeaderCellDef> CategoryName </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.CategoryName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="BrandName">
+            <mat-header-cell *matHeaderCellDef> BrandName </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.BrandName}}
+            </mat-cell>
+        </ng-container>
+       
+        <ng-container matColumnDef="Delete">
+            <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
+            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
+                    <span class="fa fa-trash"></span>
+                </i>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
+
+    </mat-table>
+    <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
+
+</div>
+
+<ng-template #AddModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="ProductObject.Name" required class="form-control" type="text" name="Name"
+                        id="Name" ngModel>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Description </label>
+                    <input [(ngModel)]="ProductObject.Description" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
+
+                </div>
+            </div>
+        
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <select [(ngModel)]="ProductObject.CategoryId" class="form-control">
+                        <option *ngFor="let cat of Categories" value="{{cat.Id}}">{{cat.Name}}</option>
+                    </select>
+                    
+                </div>
+            </div>
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Brand Name</label>
+                    <select [(ngModel)]="ProductObject.BrandId" class="form-control">
+                        <option *ngFor="let bra of Brands" value="{{bra.Id}}">{{bra.Name}}</option>
+                    </select>
+                    
+                </div>
+            </div>
+            
+        </div>
+      
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+                (click)="AddProduct(ProductObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #EditModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input [(ngModel)]="ProductObject.Name" required class="form-control" type="text" name="Name"
+                        id="Name" ngModel>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Description </label>
+                    <input [(ngModel)]="ProductObject.Description" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
+
+                </div>
+            </div>
+        
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <select [(ngModel)]="ProductObject.CategoryId" class="form-control">
+                        <option *ngFor="let cat of Categories" value="{{cat.Id}}">{{cat.Name}}</option>
+                    </select>
+                    
+                </div>
+            </div>
+           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Brand Name</label>
+                    <select [(ngModel)]="ProductObject.BrandId" class="form-control">
+                        <option *ngFor="let bra of Brands" value="{{bra.Id}}">{{bra.Name}}</option>
+                    </select>
+                    
+                </div>
+            </div>
+            
+        </div>
+      
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+                (click)="updateProduct(ProductObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+                (click)="modal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #DeleteModal let-Dmodal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            Are you sure ,you want delete this.
+        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+        <div class="col-md-offset-3 col-md-3">
+            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
+                (click)="DeleteProduct(ProductObject)">Save</button>
+        </div>
+        <div class=" col-md-3">
+            <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
+                (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+        </div>
+    </div>
+</ng-template>
+
+<style>
+    button {
+        margin: 16px 8px;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

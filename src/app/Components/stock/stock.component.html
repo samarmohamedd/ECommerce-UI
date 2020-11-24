@@ -1,13 +1,14 @@
-<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Brand</button>
+
+<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Stock</button>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
-        <li class="breadcrumb-item   " aria-current="page">Brand</li>
+        <li class="breadcrumb-item   " aria-current="page">Stocks</li>
     </ol>
 </nav>
 <div class="example-table-container">
 
-    <mat-table [dataSource]="Brands" class="mat-elevation-z8">
+    <mat-table [dataSource]="Stocks" class="mat-elevation-z8">
         <ng-container matColumnDef="Id">
             <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
             <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
@@ -17,9 +18,18 @@
             <mat-cell *matCellDef="let element"> {{element.Name}}
             </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Descripton">
-            <mat-header-cell *matHeaderCellDef> Descripton  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Descripton}}
+        <ng-container matColumnDef="Vendor_Name">
+            <mat-header-cell *matHeaderCellDef> Vendor_Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Vendor_Name}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Address">
+            <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Address}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Description}}
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Delete">
@@ -39,34 +49,9 @@
 
 </div>
 
-<!-- <table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let Item of Brands; let i=index">
-            <td>{{i}}</td>
-            <td>{{Item.Name}} </td>
-            <td>{{Item.Descripton}} </td>
-            <td>
-                <button class="btn btn-primary" (click)="openEditModal(EditModal,Item.Id)">
-                    Edit</button> |
-                <button class="btn btn-danger" (click)="openDeleteModal(DeleteModal,Item.Id)">
-                    Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table> -->
-
-
 <ng-template #AddModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Add Brand</h4>
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
 
     </div>
     <div class="modal-body">
@@ -74,27 +59,47 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Name</label>
-                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
+                    <input [(ngModel)]="StockObject.Name" required class="form-control" type="text" name="Name"
                         id="Name" ngModel>
 
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label>Description</label>
-                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
-                        name="Descripton" id="Descripton" ngModel>
-
+                    <label>Vendor Name</label>
+                    <select [(ngModel)]="StockObject.Vendor_Id" class="form-control">
+                        <option *ngFor="let ven of Vendors" value="{{ven.Id}}">{{ven.Name}}</option>
+                    </select>
+                    
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Address </label>
+                    <input [(ngModel)]="StockObject.Address" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
 
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Description </label>
+                    <input [(ngModel)]="StockObject.Description" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
+
+                </div>
+            </div>
+            
+        </div>
+      
     </div>
 
     <div class="row text-center  modal-footer">
         <div class="col-md-offset-3 col-md-3">
             <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="AddBrand(BrandObject)">Save</button>
+                (click)="AddStock(StockObject)">Save</button>
         </div>
         <div class=" col-md-3">
             <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
@@ -102,12 +107,9 @@
         </div>
     </div>
 </ng-template>
-
-
-
 <ng-template #EditModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Edit Brand</h4>
+        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
 
     </div>
     <div class="modal-body">
@@ -115,27 +117,47 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Name</label>
-                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
+                    <input [(ngModel)]="StockObject.Name" required class="form-control" type="text" name="Name"
                         id="Name" ngModel>
 
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label>Description</label>
-                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
-                        name="Descripton" id="Descripton" ngModel>
-
+                    <label>Vendor Name</label>
+                    <select [(ngModel)]="StockObject.Vendor_Id" class="form-control">
+                        <option *ngFor="let ven of Vendors" value="{{ven.Id}}">{{ven.Name}}</option>
+                    </select>
+                    
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Address </label>
+                    <input [(ngModel)]="StockObject.Address" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
 
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>Description </label>
+                    <input [(ngModel)]="StockObject.Description" required class="form-control" type="text" name="Name"
+                    id="Name" ngModel>
+
+                </div>
+            </div>
+            
+        </div>
+      
     </div>
 
     <div class="row text-center  modal-footer">
         <div class="col-md-offset-3 col-md-3">
             <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="updateBrand(BrandObject)">Save</button>
+                (click)="updateStock(StockObject)">Save</button>
         </div>
         <div class=" col-md-3">
             <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
@@ -146,7 +168,7 @@
 
 <ng-template #DeleteModal let-Dmodal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete Brand</h4>
+        <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
 
     </div>
     <div class="modal-body">
@@ -159,7 +181,7 @@
     <div class="row text-center  modal-footer">
         <div class="col-md-offset-3 col-md-3">
             <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
-                (click)="DeleteBrand(BrandObject)">Save</button>
+                (click)="DeleteStock(StockObject)">Save</button>
         </div>
         <div class=" col-md-3">
             <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
@@ -167,3 +189,13 @@
         </div>
     </div>
 </ng-template>
+
+<style>
+    button {
+        margin: 16px 8px;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

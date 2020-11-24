@@ -2,8 +2,13 @@
     cursor: pointer;
 }
 nav{
-    background-color: 	#F7E5E4;
+   border-bottom: 3px solid #24AE91;
+   width: 83.5%;
+   box-shadow: 0em 0 0.5em #2c8b77;
 }
 .navbar-light .navbar-nav .nav-link {
     color: white;
+}
+.nav-link{
+    color: black !important;
 }

@@ -14,6 +14,12 @@ export class BrandsComponent implements OnInit {
     Name: "",
     Descripton: "",
   };
+  displayedColumns: string[] = [
+    'Id',
+    'Name',
+    'Descripton',
+    'Delete'
+  ];
   closeResult: string = '';
 
   constructor(private _PublicService: PublicService
@@ -67,6 +73,7 @@ export class BrandsComponent implements OnInit {
 
     debugger;
     this._PublicService.Add('Brand', 'AddData', this.BrandObject).subscribe((Response) => {
+      this.modalService.dismissAll();
       this.getAllBrands();
     });
 
