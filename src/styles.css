@@ -3,16 +3,22 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~font-awesome/css/font-awesome.css";
-body{
-    background-color:  #FFFFFF;
+@import '~material-design-icons/iconfont/material-icons.css';
+
+
+body {
+  background-color: #FFFFFF;
 }
 
-html , body{
-    height: 100%;
-margin: 0%;
+html,
+body {
+  height: 100%;
+  margin: 0%;
 
-} 
+}
 
-mat-row, mat-header-row, mat-footer-row{
-    width: 100%;
+mat-row,
+mat-header-row,
+mat-footer-row {
+  width: 100%;
 }

@@ -1,0 +1,45 @@
+<div class="example-container">
+  <mat-toolbar color="primary" class="example-toolbar" fxFlex fxLayoutAlign="flex-end center">
+    <button mat-icon-button (click)="snav.toggle()" >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span>Menu</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <a routerLink="/Home" routerLinkActive="Selected" class="list-item">
+          <span>Home</span>
+        </a>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>perm_contact_calendar</mat-icon>
+        <span>My Account</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- <mat-sidenav-container class="sidenav-container" layout-align="end center">
+    <mat-sidenav #snav [mode]="'push'" position="end" #sidenavright opened="true"> -->
+      <mat-sidenav-container class="sidenav-container" >
+        <mat-sidenav #snav [mode]="'push'" opened="true">
+      <mat-nav-list>
+        <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+      </mat-nav-list>
+        </mat-sidenav>
+   
+    <mat-sidenav-content >
+      <div class="sidenavContent" >
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+    </mat-sidenav-content>
+    <span class="version-info">Current build: {{version.full ? version.full : version}}</span>
+  </mat-sidenav-container>
+</div>
