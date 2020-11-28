@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IBrand } from 'src/app/Interfaces/IBrand';
 import { PublicService } from 'src/app/public-service.service';
@@ -8,7 +10,7 @@ import { PublicService } from 'src/app/public-service.service';
   templateUrl: './brands.component.html',
   styleUrls: ['./brands.component.css']
 })
-export class BrandsComponent implements OnInit {
+export class BrandsComponent implements OnInit, AfterViewInit {
   Brands: any;
   value = 'Clear me';
   BrandObject: IBrand = {
@@ -21,13 +23,19 @@ export class BrandsComponent implements OnInit {
     'Descripton',
     'Delete'
   ];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<IBrand>;
+
   closeResult: string = '';
 
   constructor(private _PublicService: PublicService
     , private modalService: NgbModal) { }
+  ngAfterViewInit() {
 
-  ngOnInit(): void {
     this.getAllBrands();
+
+  }
+  ngOnInit(): void {
 
   }
 
@@ -35,6 +43,9 @@ export class BrandsComponent implements OnInit {
   getAllBrands() {
     this._PublicService.getAll("Brand", 'ViewGetAll').subscribe(res => {
       this.Brands = res;
+      this.dataSource = new MatTableDataSource<IBrand>(this.Brands);
+      this.dataSource.paginator = this.paginator;
+
       debugger;
     });
 

@@ -7,7 +7,7 @@
 </nav>
 <div class="example-table-container">
 
-  <mat-table [dataSource]="Brands" class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="Id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
       <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
@@ -35,34 +35,8 @@
     <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
 
   </mat-table>
-  <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
-
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
-
-<!-- <table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let Item of Brands; let i=index">
-            <td>{{i}}</td>
-            <td>{{Item.Name}} </td>
-            <td>{{Item.Descripton}} </td>
-            <td>
-                <button class="btn btn-primary" (click)="openEditModal(EditModal,Item.Id)">
-                    Edit</button> |
-                <button class="btn btn-danger" (click)="openDeleteModal(DeleteModal,Item.Id)">
-                    Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table> -->
-
 
 <ng-template #AddModal let-modal>
   <div class="modal-header">

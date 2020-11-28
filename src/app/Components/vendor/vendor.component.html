@@ -7,7 +7,7 @@
 </nav>
 <div class="example-table-container">
 
-  <mat-table [dataSource]="Vendors" class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="Id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
       <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
@@ -53,7 +53,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
 
   </mat-table>
-  <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { PublicService } from 'src/app/public-service.service';
   templateUrl: './stock-items.component.html',
   styleUrls: ['./stock-items.component.css']
 })
-export class StockItemsComponent implements OnInit {
+export class StockItemsComponent implements OnInit, AfterViewInit {
 
 
   closeResult: string = '';
@@ -25,9 +25,8 @@ export class StockItemsComponent implements OnInit {
     'Price',
     'Delete',
   ];
-  dataSource = new MatTableDataSource();
+  dataSource!: MatTableDataSource<IStockItems>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   StockItemss: any;
   StockItemsObject: IStockItems = {
     Size: "",
@@ -43,20 +42,16 @@ export class StockItemsComponent implements OnInit {
   Stocks: any;
   Products: any;
 
-
-  syncPrimaryPaginator(event: PageEvent) {
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.page.emit(event);
-  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
 
   }
+  ngAfterViewInit() {
+    this.getAllStockItems();
+  }
 
   ngOnInit(): void {
-    this.getAllStockItems();
     this.getAllProducts();
     this.getAllStocks();
 
@@ -65,24 +60,20 @@ export class StockItemsComponent implements OnInit {
     this._PublicService.getAll("StockItems", 'ViewGetAll').subscribe(res => {
       this.StockItemss = res;
       debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.StockItemss);
-
+      this.dataSource = new MatTableDataSource<IStockItems>(this.StockItemss);
+      this.dataSource.paginator = this.paginator;
     });
 
   }
   getAllProducts() {
     this._PublicService.getAll("Product", 'ViewGetAll').subscribe(res => {
       this.Products = res;
-      debugger;
     });
 
   }
   getAllStocks() {
     this._PublicService.getAll("Stock", 'ViewGetAll').subscribe(res => {
       this.Stocks = res;
-      debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Stocks);
-
     });
 
   }
@@ -109,7 +100,7 @@ export class StockItemsComponent implements OnInit {
   }
   AddStockItems() {
 
-    debugger;
+
     this._PublicService.Add('StockItems', 'AddData', this.StockItemsObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllStockItems();
@@ -142,7 +133,7 @@ export class StockItemsComponent implements OnInit {
 
   //Delete Modal
   DeleteStockItems(Object: any) {
-    debugger;
+
     this._PublicService.Delete("StockItems", 'DeleteData', Object.Id).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllStockItems();
@@ -150,7 +141,7 @@ export class StockItemsComponent implements OnInit {
 
   }
   openDeleteModal(content: any, Object: any) {
-    debugger;
+
 
     const result: IStockItems = this.StockItemss.find((obj: any) => obj.Id === Object.Id);
     this.StockItemsObject = result;

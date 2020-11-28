@@ -1,4 +1,4 @@
-import { ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { PublicService } from 'src/app/public-service.service';
   templateUrl: './vendor.component.html',
   styleUrls: ['./vendor.component.css']
 })
-export class VendorComponent implements OnInit {
+export class VendorComponent implements OnInit, AfterViewInit {
 
 
   closeResult: string = '';
@@ -27,9 +27,8 @@ export class VendorComponent implements OnInit {
     'Description',
     'Delete',
   ];
-  dataSource = new MatTableDataSource();
+  dataSource!: MatTableDataSource<IVendor>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   Vendors: any;
   VendorObject: IVendor = {
     Name: "",
@@ -39,28 +38,22 @@ export class VendorComponent implements OnInit {
     Address: "",
     Phone: 0
   };
-
-
-  syncPrimaryPaginator(event: PageEvent) {
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.page.emit(event);
-  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
 
   }
+  ngAfterViewInit() {
+    this.getAllVendors();
+  }
 
   ngOnInit(): void {
-    this.getAllVendors();
   }
   getAllVendors() {
     this._PublicService.getAll("Vendor", 'ViewGetAll').subscribe(res => {
       this.Vendors = res;
-      debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Vendors);
-
+      this.dataSource = new MatTableDataSource<IVendor>(this.Vendors);
+      this.dataSource.paginator = this.paginator;
     });
 
   }

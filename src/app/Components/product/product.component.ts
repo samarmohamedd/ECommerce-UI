@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { PublicService } from 'src/app/public-service.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, AfterViewInit {
 
   closeResult: string = '';
 
@@ -23,9 +23,8 @@ export class ProductComponent implements OnInit {
     'BrandName',
     'Delete',
   ];
-  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  dataSource!: MatTableDataSource<IProduct>;
   Products: any;
   ProductObject: IProduct = {
     Name: "",
@@ -38,20 +37,17 @@ export class ProductComponent implements OnInit {
   Categories: any;
   Brands: any;
 
-
-  syncPrimaryPaginator(event: PageEvent) {
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.page.emit(event);
-  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
 
   }
+  ngAfterViewInit() {
 
-  ngOnInit(): void {
     this.getAllProducts();
+
+  }
+  ngOnInit(): void {
     this.getAllBrands();
     this.getAllCategories();
 
@@ -60,23 +56,20 @@ export class ProductComponent implements OnInit {
     this._PublicService.getAll("Product", 'ViewGetAll').subscribe(res => {
       this.Products = res;
       debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Products);
-
+      this.dataSource = new MatTableDataSource<IProduct>(this.Products);
+      this.dataSource.paginator = this.paginator;
     });
 
   }
   getAllCategories() {
     this._PublicService.getAll("Category", 'ViewGetAll').subscribe(res => {
       this.Categories = res;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Categories);
-
     });
 
   }
   getAllBrands() {
     this._PublicService.getAll("Brand", 'ViewGetAll').subscribe(res => {
       this.Brands = res;
-      debugger;
     });
 
   }

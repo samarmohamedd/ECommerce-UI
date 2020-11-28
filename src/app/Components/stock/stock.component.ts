@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IStock } from 'src/app/Interfaces/IStock';
@@ -11,7 +10,7 @@ import { PublicService } from 'src/app/public-service.service';
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
-export class StockComponent implements OnInit {
+export class StockComponent implements OnInit, AfterViewInit {
 
 
   closeResult: string = '';
@@ -24,9 +23,8 @@ export class StockComponent implements OnInit {
     'Description',
     'Delete',
   ];
-  dataSource = new MatTableDataSource();
+  dataSource!: MatTableDataSource<IStock>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
   Stocks: any;
   StockObject: IStock = {
     Name: "",
@@ -37,28 +35,22 @@ export class StockComponent implements OnInit {
   };
   Vendors: any;
 
-
-  syncPrimaryPaginator(event: PageEvent) {
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.page.emit(event);
-  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
 
   }
-
-  ngOnInit(): void {
+  ngAfterViewInit() {
     this.getAllStocks();
+  }
+  ngOnInit(): void {
     this.getAllVendors();
   }
   getAllStocks() {
     this._PublicService.getAll("Stock", 'ViewGetAll').subscribe(res => {
       this.Stocks = res;
-      debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Stocks);
-
+      this.dataSource = new MatTableDataSource<IStock>(this.Stocks);
+      this.dataSource.paginator = this.paginator;
     });
 
   }
@@ -66,8 +58,6 @@ export class StockComponent implements OnInit {
     this._PublicService.getAll("Vendor", 'ViewGetAll').subscribe(res => {
       this.Vendors = res;
       debugger;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Vendors);
-
     });
 
   }

@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ICategory } from '../../Interfaces/ICategory';
 import { PublicService } from '../../public-service.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,14 +11,12 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
-
-
 @Component({
   selector: 'category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, AfterViewInit {
   Categories: any;
   CategoryObject: ICategory = {
     Name: "",
@@ -36,36 +33,32 @@ export class CategoryComponent implements OnInit {
     'Descripton',
     'Delete'
   ];
-  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  dataSource!: MatTableDataSource<ICategory>;
 
 
-  syncPrimaryPaginator(event: PageEvent) {
-    this.paginator.pageIndex = event.pageIndex;
-    this.paginator.pageSize = event.pageSize;
-    this.paginator.page.emit(event);
-  }
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal) {
 
   }
+  ngAfterViewInit() {
 
-  ngOnInit(): void {
     this.getAllCategories();
+
+  }
+  ngOnInit(): void {
   }
   getAllCategories() {
     this._PublicService.getAll("Category", 'ViewGetAll').subscribe(res => {
       this.Categories = res;
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.Categories);
-
+      this.dataSource = new MatTableDataSource<ICategory>(this.Categories);
+      this.dataSource.paginator = this.paginator;
     });
 
   }
   //Add modal
   AddCategory() {
-    debugger;
     this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllCategories();
@@ -73,7 +66,6 @@ export class CategoryComponent implements OnInit {
   }
 
   openAddModal(content: any) {
-
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -81,12 +73,10 @@ export class CategoryComponent implements OnInit {
   }
   //Edit Modal
   updateCategory(Object: any) {
-
     this._PublicService.Update('Category', 'UpdateData', Object).subscribe((Response) => {
       this.Categories = Response;
       this.modalService.dismissAll();
       this.getAllCategories();
-
     });
 
   }
@@ -102,7 +92,7 @@ export class CategoryComponent implements OnInit {
 
   //Delete Modal
   DeleteCategory(Object: any) {
-    debugger;
+
     this._PublicService.Delete("Category", 'DeleteData', Object.Id).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllCategories();
@@ -110,7 +100,7 @@ export class CategoryComponent implements OnInit {
 
   }
   openDeleteModal(content: any, Object: any) {
-    debugger;
+
 
     const result: ICategory = this.Categories.find((obj: any) => obj.Id === Object.Id);
     this.CategoryObject = result;
