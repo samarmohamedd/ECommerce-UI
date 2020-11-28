@@ -4,12 +4,13 @@ import { IBrand } from 'src/app/Interfaces/IBrand';
 import { PublicService } from 'src/app/public-service.service';
 
 @Component({
-  selector: 'app-brands',
+  selector: 'brands',
   templateUrl: './brands.component.html',
   styleUrls: ['./brands.component.css']
 })
 export class BrandsComponent implements OnInit {
   Brands: any;
+  value = 'Clear me';
   BrandObject: IBrand = {
     Name: "",
     Descripton: "",

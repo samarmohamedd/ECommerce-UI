@@ -1,41 +1,41 @@
-<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Brand</button>
+<button class="btn btn-info" style="float: right;" (click)="openAddModal(AddModal)">Create New Brand</button>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
-        <li class="breadcrumb-item   " aria-current="page">Brand</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
+    <li class="breadcrumb-item   " aria-current="page">Brand</li>
+  </ol>
 </nav>
 <div class="example-table-container">
 
-    <mat-table [dataSource]="Brands" class="mat-elevation-z8">
-        <ng-container matColumnDef="Id">
-            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-            <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Name}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Descripton">
-            <mat-header-cell *matHeaderCellDef> Descripton  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Descripton}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Delete">
-            <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
-            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-                <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
-                    <span class="fa fa-trash"></span>
-                </i>
-            </mat-cell>
-        </ng-container>
+  <mat-table [dataSource]="Brands" class="mat-elevation-z8">
+    <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Name}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Descripton">
+      <mat-header-cell *matHeaderCellDef> Descripton </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Descripton}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Delete">
+      <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+        <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
+          <span class="fa fa-trash"></span>
+        </i>
+      </mat-cell>
+    </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
 
-    </mat-table>
-    <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
+  </mat-table>
+  <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
 
 </div>
 
@@ -65,105 +65,113 @@
 
 
 <ng-template #AddModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Add Brand</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Brand</h4>
 
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
-                        id="Name" ngModel>
-
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Description</label>
-                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
-                        name="Descripton" id="Descripton" ngModel>
-
-                </div>
-            </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="BrandObject.Name">
+            <button mat-button *ngIf="BrandObject.Name" matSuffix mat-icon-button aria-label="Clear"
+              (click)="BrandObject.Name=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
-
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="BrandObject.Descripton"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="AddBrand(BrandObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-                (click)="modal.dismiss('Cross click')">Cancel</button>
-        </div>
+  </div>
+
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+        (click)="AddBrand(BrandObject)">Save</button>
     </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+        (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </div>
 </ng-template>
 
 
 
 <ng-template #EditModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Edit Brand</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Brand</h4>
 
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input [(ngModel)]="BrandObject.Name" required class="form-control" type="text" name="Name"
-                        id="Name" ngModel>
-
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Description</label>
-                    <input [(ngModel)]="BrandObject.Descripton" required class="form-control" type="text"
-                        name="Descripton" id="Descripton" ngModel>
-
-                </div>
-            </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="BrandObject.Name">
+            <button mat-button *ngIf="BrandObject.Name" matSuffix mat-icon-button aria-label="Clear"
+              (click)="BrandObject.Name=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
-
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="BrandObject.Descripton"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="updateBrand(BrandObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-                (click)="modal.dismiss('Cross click')">Cancel</button>
-        </div>
+  </div>
+
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+        (click)="updateBrand(BrandObject)">Save</button>
     </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+        (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #DeleteModal let-Dmodal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete Brand</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Brand</h4>
 
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            Are you sure ,you want delete this.
-        </div>
-
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      Are you sure ,you want delete this.
     </div>
 
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
-                (click)="DeleteBrand(BrandObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
-                (click)="Dmodal.dismiss('Cross click')">Cancel</button>
-        </div>
+  </div>
+
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
+        (click)="DeleteBrand(BrandObject)">Save</button>
     </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
+        (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </div>
 </ng-template>

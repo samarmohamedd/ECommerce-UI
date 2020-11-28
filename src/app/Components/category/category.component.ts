@@ -15,7 +15,7 @@ export interface PeriodicElement {
 
 
 @Component({
-  selector: 'app-category',
+  selector: 'category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
@@ -62,6 +62,22 @@ export class CategoryComponent implements OnInit {
 
     });
 
+  }
+  //Add modal
+  AddCategory() {
+    debugger;
+    this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
+      this.modalService.dismissAll();
+      this.getAllCategories();
+    });
+  }
+
+  openAddModal(content: any) {
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    });
   }
   //Edit Modal
   updateCategory(Object: any) {

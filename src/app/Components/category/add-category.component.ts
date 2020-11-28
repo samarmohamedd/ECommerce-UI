@@ -26,13 +26,19 @@ export class AddCategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllCategories();
   }
+  getAllCategories() {
+    this._PublicService.getAll("Category", 'ViewGetAll').subscribe(res => {
+      this.Categories = res;
 
+    });
+
+  }
   AddCategory() {
 
     debugger;
     this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
-      this.Categories = Response;
       this._router.navigate(['/Category']);
 
     });

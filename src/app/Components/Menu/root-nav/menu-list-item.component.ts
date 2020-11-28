@@ -5,7 +5,7 @@ import { NavItem } from 'src/app/Interfaces/NavItem';
 import { NavService } from 'src/app/Services/nav.service';
 
 @Component({
-  selector: 'app-menu-list-item',
+  selector: 'menu-list-item',
   templateUrl: './menu-list-item.component.html',
   styleUrls: ['./menu-list-item.component.scss'],
   animations: [

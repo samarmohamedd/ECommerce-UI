@@ -20,6 +20,21 @@
   background-color: #eaf3f6 !important;
 }
 
+
+.mat-list-item:hover::after,
+.mat-list-item:focus::after>.mat-list-item:not(.expanded)::after {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  bottom: 0;
+  color: #ef4586;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #303030;
+  content: "";
+}
+
+
 .mat-list-item {
   padding: 8px 0;
   display: flex;
@@ -30,19 +45,21 @@
 
 .routeIcon {
   margin-right: 40px;
-  color: cadetblue;
+  color: #ef4586;
 }
 
-app-menu-list-item {
+menu-list-item {
   background-color: #d1cdcd;
 }
 
-app-menu-list-item:nth-child(odd) {
-  background-color: #e7e7e7;
+
+
+menu-list-item:nth-child(odd) {
+  background-color: #c2d7d2;
 }
 
-app-menu-list-item:nth-child(even) {
-  background-color: #e7e7e7;
+menu-list-item:nth-child(even) {
+  background-color: #c2d7d2;
 }
 
 .expandmoreIcon {

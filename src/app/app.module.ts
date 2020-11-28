@@ -25,6 +25,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
 
 /**
  * Components 
@@ -45,6 +47,12 @@ import { MenuListItemComponent } from './Components/Menu/root-nav/menu-list-item
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolBarComponent } from './Components/Menu/tool-bar/tool-bar.component';
+import { CategoryContainerComponent } from './Components/category/category-container/category-container.component';
+import { BrandContainerComponent } from './Components/brands/brand-container/brand-container.component';
+import { ProductContainerComponent } from './Components/product/product-container/product-container.component';
+import { VendorContainerComponent } from './Components/vendor/vendor-container/vendor-container.component';
+import { StockContainerComponent } from './Components/stock/stock-container/stock-container.component';
+import { StockItemsContainerComponent } from './Components/stock-items/stock-items-container/stock-items-container.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +67,13 @@ import { ToolBarComponent } from './Components/Menu/tool-bar/tool-bar.component'
     StockItemsComponent,
     RootNavComponent,
     ToolBarComponent,
-    MenuListItemComponent
+    MenuListItemComponent,
+    CategoryContainerComponent,
+    BrandContainerComponent,
+    ProductContainerComponent,
+    VendorContainerComponent,
+    StockContainerComponent,
+    StockItemsContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +89,7 @@ import { ToolBarComponent } from './Components/Menu/tool-bar/tool-bar.component'
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
+    MatFormFieldModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -83,6 +98,7 @@ import { ToolBarComponent } from './Components/Menu/tool-bar/tool-bar.component'
     MatListModule,
     MatMenuModule,
     MatListModule,
+    MatTabsModule
   ],
   providers: [PublicService, NavService],
   bootstrap: [AppComponent]

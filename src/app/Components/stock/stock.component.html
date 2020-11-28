@@ -1,201 +1,219 @@
-
-<button class="btn btn-success" style="float: right;" (click)="openAddModal(AddModal)">Create New Stock</button>
+<button class="btn btn-info" style="float: right;" (click)="openAddModal(AddModal)">Create New Stock</button>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
-        <li class="breadcrumb-item   " aria-current="page">Stocks</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
+    <li class="breadcrumb-item   " aria-current="page">Stocks</li>
+  </ol>
 </nav>
 <div class="example-table-container">
 
-    <mat-table [dataSource]="Stocks" class="mat-elevation-z8">
-        <ng-container matColumnDef="Id">
-            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-            <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Name}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Vendor_Name">
-            <mat-header-cell *matHeaderCellDef> Vendor_Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Vendor_Name}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Address">
-            <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Address}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Description">
-            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Description}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Delete">
-            <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
-            <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
-                <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
-                    <span class="fa fa-trash"></span>
-                </i>
-            </mat-cell>
-        </ng-container>
+  <mat-table [dataSource]="Stocks" class="mat-elevation-z8">
+    <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Name}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Vendor_Name">
+      <mat-header-cell *matHeaderCellDef> Vendor_Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Vendor_Name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Address">
+      <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Address}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Description}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Delete">
+      <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+        <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
+          <span class="fa fa-trash"></span>
+        </i>
+      </mat-cell>
+    </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openEditModal(EditModal,row.Id)"></mat-row>
 
-    </mat-table>
-    <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
+  </mat-table>
+  <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
 
 </div>
 
 <ng-template #AddModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Stock</h4>
+
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="StockObject.Name">
+            <button mat-button *ngIf="StockObject.Name" matSuffix mat-icon-button aria-label="Clear"
+              (click)="StockObject.Name=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Vendor Name</mat-label>
+            <mat-select [(ngModel)]="StockObject.Vendor_Id">
+              <mat-option *ngFor="let ven of Vendors" [value]="ven.Id">{{ven.Name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" [(ngModel)]="StockObject.Address">
+            <button mat-button *ngIf="StockObject.Address" matSuffix mat-icon-button aria-label="Clear"
+              (click)="StockObject.Address=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="StockObject.Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
 
     </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input [(ngModel)]="StockObject.Name" required class="form-control" type="text" name="Name"
-                        id="Name" ngModel>
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Vendor Name</label>
-                    <select [(ngModel)]="StockObject.Vendor_Id" class="form-control">
-                        <option *ngFor="let ven of Vendors" value="{{ven.Id}}">{{ven.Name}}</option>
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group"> 
-                    <label>Address </label>
-                    <input [(ngModel)]="StockObject.Address" required class="form-control" type="text" name="Name"
-                    id="Name" ngModel>
+  </div>
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group"> 
-                    <label>Description </label>
-                    <input [(ngModel)]="StockObject.Description" required class="form-control" type="text" name="Name"
-                    id="Name" ngModel>
-
-                </div>
-            </div>
-            
-        </div>
-      
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+        (click)="AddStock(StockObject)">Save</button>
     </div>
-
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="AddStock(StockObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-                (click)="modal.dismiss('Cross click')">Cancel</button>
-        </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+        (click)="modal.dismiss('Cross click')">Cancel</button>
     </div>
+  </div>
 </ng-template>
 <ng-template #EditModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Stock</h4>
+
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="StockObject.Name">
+            <button mat-button *ngIf="StockObject.Name" matSuffix mat-icon-button aria-label="Clear"
+              (click)="StockObject.Name=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Vendor Name</mat-label>
+            <mat-select [(ngModel)]="StockObject.Vendor_Id">
+              <mat-option *ngFor="let ven of Vendors" [value]="ven.Id">{{ven.Name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field class="form-field">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" [(ngModel)]="StockObject.Address">
+            <button mat-button *ngIf="StockObject.Address" matSuffix mat-icon-button aria-label="Clear"
+              (click)="StockObject.Address=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="StockObject.Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
 
     </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input [(ngModel)]="StockObject.Name" required class="form-control" type="text" name="Name"
-                        id="Name" ngModel>
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Vendor Name</label>
-                    <select [(ngModel)]="StockObject.Vendor_Id" class="form-control">
-                        <option *ngFor="let ven of Vendors" value="{{ven.Id}}">{{ven.Name}}</option>
-                    </select>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group"> 
-                    <label>Address </label>
-                    <input [(ngModel)]="StockObject.Address" required class="form-control" type="text" name="Name"
-                    id="Name" ngModel>
+  </div>
 
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group"> 
-                    <label>Description </label>
-                    <input [(ngModel)]="StockObject.Description" required class="form-control" type="text" name="Name"
-                    id="Name" ngModel>
-
-                </div>
-            </div>
-            
-        </div>
-      
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
+        (click)="updateStock(StockObject)">Save</button>
     </div>
-
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-                (click)="updateStock(StockObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-                (click)="modal.dismiss('Cross click')">Cancel</button>
-        </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+        (click)="modal.dismiss('Cross click')">Cancel</button>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #DeleteModal let-Dmodal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
 
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            Are you sure ,you want delete this.
-        </div>
-
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      Are you sure ,you want delete this.
     </div>
 
-    <div class="row text-center  modal-footer">
-        <div class="col-md-offset-3 col-md-3">
-            <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
-                (click)="DeleteStock(StockObject)">Save</button>
-        </div>
-        <div class=" col-md-3">
-            <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
-                (click)="Dmodal.dismiss('Cross click')">Cancel</button>
-        </div>
+  </div>
+
+  <div class="row text-center  modal-footer">
+    <div class="col-md-offset-3 col-md-3">
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
+        (click)="DeleteStock(StockObject)">Save</button>
     </div>
+    <div class=" col-md-3">
+      <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
+        (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </div>
 </ng-template>
 
 <style>
-    button {
-        margin: 16px 8px;
-    }
+  button {
+    margin: 16px 8px;
+  }
 
-    table {
-        width: 100%;
-    }
+  table {
+    width: 100%;
+  }
+
 </style>

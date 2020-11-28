@@ -8,7 +8,7 @@ import { IVendor } from 'src/app/Interfaces/IVendor';
 import { PublicService } from 'src/app/public-service.service';
 
 @Component({
-  selector: 'app-vendor',
+  selector: 'vendor',
   templateUrl: './vendor.component.html',
   styleUrls: ['./vendor.component.css']
 })

@@ -37,18 +37,18 @@ export class RootNavComponent {
         {
           displayName: 'Category',
           iconName: 'group',
-          route: '/Category',
+          route: '/CategoryContainer',
           children: []
         },
         {
           displayName: 'Brand',
           iconName: 'group',
-          route: '/Brand',
+          route: '/BrandContainer',
           children: []
         }, {
           displayName: 'Product',
           iconName: 'group',
-          route: '/Product',
+          route: '/ProductContainer',
           children: []
         },
       ]
@@ -60,18 +60,18 @@ export class RootNavComponent {
         {
           displayName: 'Vendor',
           iconName: 'group',
-          route: '/Vendor',
+          route: '/VendorContainer',
           children: []
         },
         {
           displayName: 'Stock',
           iconName: 'Stock',
-          route: '/Stock',
+          route: '/StockContainer',
           children: []
         }, {
           displayName: 'StockItems',
           iconName: 'group',
-          route: '/StockItems',
+          route: '/StockItemsContainer',
           children: []
         },
       ]

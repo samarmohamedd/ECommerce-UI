@@ -7,7 +7,7 @@ import { IProduct } from 'src/app/Interfaces/IProduct';
 import { PublicService } from 'src/app/public-service.service';
 
 @Component({
-  selector: 'app-product',
+  selector: 'product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
@@ -125,7 +125,7 @@ export class ProductComponent implements OnInit {
   openEditModal(content: any, Id: any) {
     const result: IProduct = this.Products.find((obj: any) => obj.Id === Id);
     this.ProductObject = result;
-
+    debugger;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

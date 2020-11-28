@@ -7,7 +7,7 @@ import { IStock } from 'src/app/Interfaces/IStock';
 import { PublicService } from 'src/app/public-service.service';
 
 @Component({
-  selector: 'app-stock',
+  selector: 'stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })

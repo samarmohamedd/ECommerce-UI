@@ -53,10 +53,18 @@ mat-sidenav {
 }
 
 .mat-toolbar.mat-primary {
-  background: #39798E;
+  background: black;
   color: #fff;
 }
 
 .mat-list-item-content {
   width: 100%;
+}
+
+button:not(:disabled),
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled) {
+  cursor: pointer;
+  color: #f47f87;
 }
