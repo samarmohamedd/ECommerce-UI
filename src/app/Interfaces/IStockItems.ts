@@ -7,4 +7,5 @@ export interface IStockItems {
     Price: number;
     Quantity: number;
     Size: string;
+    Description: string;
 }

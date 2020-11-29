@@ -20,6 +20,7 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
     'Id',
     'Stock_Name',
     'Product_Name',
+    'Description',
     'Quantity',
     'Size',
     'Price',
@@ -36,7 +37,8 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
     Product_Name: "",
     Price: 0,
     Quantity: 0,
-    Id: 0
+    Id: 0,
+    Description: ""
   };
 
   Stocks: any;
@@ -95,7 +97,8 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
       Product_Name: "",
       Price: 0,
       Quantity: 0,
-      Id: 0
+      Id: 0,
+      Description: ""
     };
   }
   AddStockItems() {

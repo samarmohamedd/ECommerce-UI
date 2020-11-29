@@ -10,8 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
-
-/** 
+// import { FlexLayoutModule } from '@angular/flex-layout';
+/**
 *Material Modules
  */
 import { MatSelectModule } from '@angular/material/select';
@@ -27,9 +27,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 /**
- * Components 
+ * Components
  * */
 import { PublicService } from './public-service.service';
 import { NavService } from './Services/nav.service';
@@ -98,7 +99,9 @@ import { StockItemsContainerComponent } from './Components/stock-items/stock-ite
     MatListModule,
     MatMenuModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
+    // FlexLayoutModule
   ],
   providers: [PublicService, NavService],
   bootstrap: [AppComponent]

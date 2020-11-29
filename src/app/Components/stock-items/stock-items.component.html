@@ -22,6 +22,12 @@
       <mat-cell *matCellDef="let element"> {{element.Product_Name}}
       </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="Description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.Description}}
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="Quantity">
       <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.Quantity}} </mat-cell>
@@ -125,7 +131,14 @@
           </mat-form-field>
         </div>
       </div>
-
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="StockItemsObject.Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -211,7 +224,14 @@
           </mat-form-field>
         </div>
       </div>
-
+      <div class="col-md-6">
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [(ngModel)]="StockItemsObject.Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
   </div>
