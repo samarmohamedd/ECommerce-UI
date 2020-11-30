@@ -8,4 +8,5 @@ export interface IStockItems {
     Quantity: number;
     Size: string;
     Description: string;
+    Image_Name: string;
 }

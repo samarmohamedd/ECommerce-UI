@@ -38,11 +38,13 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
     Price: 0,
     Quantity: 0,
     Id: 0,
-    Description: ""
+    Description: "",
+    Image_Name: ""
   };
 
   Stocks: any;
   Products: any;
+  message: string = '';
 
   constructor(
     private _PublicService: PublicService
@@ -98,7 +100,8 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
       Price: 0,
       Quantity: 0,
       Id: 0,
-      Description: ""
+      Description: "",
+      Image_Name: ""
     };
   }
   AddStockItems() {
@@ -110,6 +113,25 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
       this.ClearData();
     });
 
+  }
+  doucmentName: any;
+  onFileChanged(event: any) {
+    debugger;
+    const files = event.target.files;
+    if (files.length === 0)
+      return;
+    this.StockItemsObject.Image_Name = files[0].name;
+    var data = new FormData();
+    data.append(files[0].name, files);
+    debugger;
+    this._PublicService.UploadFile('StockItems', 'UplouadImage', data).subscribe((Response) => {
+
+    });
+    const mimeType = files[0].type;
+    // if (mimeType.match(/image\/*/) == null) {
+    //   this.message = "Only images are supported.";
+    //   return;
+    // }
   }
   //Edit Modal
   updateStockItems(Object: any) {
