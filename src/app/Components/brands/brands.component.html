@@ -48,7 +48,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <mat-form-field class="form-field">
-            <mat-label>Name</mat-label>
+            <mat-label> {{'Name' | translate }} </mat-label>
             <input matInput type="text" [(ngModel)]="BrandObject.Name">
             <button mat-button *ngIf="BrandObject.Name" matSuffix mat-icon-button aria-label="Clear"
               (click)="BrandObject.Name=''">

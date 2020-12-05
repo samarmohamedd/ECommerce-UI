@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 /**
 *Material Modules
  */
@@ -108,6 +110,13 @@ import { StockItemsContainerComponent } from './Components/stock-items/stock-ite
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
     })
   ],
   providers: [PublicService, NavService, ToasterService],
@@ -118,4 +127,7 @@ export class AppModule {
   constructor() {
     library.add(faFilm);
   }
+}
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
