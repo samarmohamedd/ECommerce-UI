@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IStockItems } from 'src/app/Interfaces/IStockItems';
-import { PublicService } from 'src/app/public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({

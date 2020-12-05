@@ -10,7 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ToastrModule } from 'ngx-toastr';
 /**
 *Material Modules
  */
@@ -32,8 +33,9 @@ import { MatCardModule } from '@angular/material/card';
 /**
  * Components
  * */
-import { PublicService } from './public-service.service';
+import { PublicService } from './Services/Public.Service/public-service.service';
 import { NavService } from './Services/nav.service';
+import { ToasterService } from './Services/Toaster.Service/toaster.service';
 import { HomeComponent } from './Components/home/home.component';
 import { CategoryComponent } from './Components/category/category.component';
 import { AddCategoryComponent } from './Components/category/add-category.component';
@@ -100,10 +102,15 @@ import { StockItemsContainerComponent } from './Components/stock-items/stock-ite
     MatMenuModule,
     MatListModule,
     MatTabsModule,
-    MatCardModule
-    // FlexLayoutModule
+    MatCardModule,
+    FlexLayoutModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
-  providers: [PublicService, NavService],
+  providers: [PublicService, NavService, ToasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

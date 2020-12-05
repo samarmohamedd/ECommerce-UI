@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IStockItems } from 'src/app/Interfaces/IStockItems';
-import { PublicService } from 'src/app/public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 
 @Component({
   selector: 'stock-items',
@@ -122,7 +122,10 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
       return;
     this.StockItemsObject.Image_Name = files[0].name;
     var data = new FormData();
-    data.append(files[0].name, files);
+    debugger;
+    var res = event[0];
+
+    data.append(files[0].name, res);
     debugger;
     this._PublicService.UploadFile('StockItems', 'UplouadImage', data).subscribe((Response) => {
 

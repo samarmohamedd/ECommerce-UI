@@ -12,16 +12,7 @@ import { VERSION } from '@angular/material/core';
 export class RootNavComponent {
   @ViewChild('appDrawer') appDrawer: ElementRef | undefined;
   version = VERSION;
-  public listaItems: any[] = [
-    { name: 'Home', url: '/Home', icon: 'home' },
-    { name: 'Category', url: '/Category', icon: 'home' },
-    { name: 'Brand', url: '/Brand', icon: 'home' },
-    { name: 'Vendor', url: '/Vendor', icon: 'home' },
-    { name: 'Product', url: '/Product', icon: 'home' },
-    { name: 'Stock Items', url: '/StockItems', icon: 'home' },
-    { name: 'Stock', url: '/Stock', icon: 'home' },
 
-  ];
 
   navItems: NavItem[] = [
     {
@@ -65,7 +56,7 @@ export class RootNavComponent {
         },
         {
           displayName: 'Stock',
-          iconName: 'Stock',
+          iconName: 'group',
           route: '/StockContainer',
           children: []
         }, {

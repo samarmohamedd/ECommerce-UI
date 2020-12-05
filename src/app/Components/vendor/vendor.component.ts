@@ -5,8 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IVendor } from 'src/app/Interfaces/IVendor';
-import { PublicService } from 'src/app/public-service.service';
-
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 @Component({
   selector: 'vendor',
   templateUrl: './vendor.component.html',

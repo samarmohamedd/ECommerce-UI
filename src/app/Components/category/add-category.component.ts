@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICategory } from 'src/app/Interfaces/ICategory';
-import { PublicService } from 'src/app/public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 
 @Component({
   selector: 'app-add-category',

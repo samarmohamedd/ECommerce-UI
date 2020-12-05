@@ -3,7 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IBrand } from 'src/app/Interfaces/IBrand';
-import { PublicService } from 'src/app/public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
+import { ToasterService } from 'src/app/Services/Toaster.Service/toaster.service';
 
 @Component({
   selector: 'brands',
@@ -29,7 +30,8 @@ export class BrandsComponent implements OnInit, AfterViewInit {
   closeResult: string = '';
 
   constructor(private _PublicService: PublicService
-    , private modalService: NgbModal) { }
+    , private modalService: NgbModal
+    , private _ToasterService: ToasterService) { }
   ngAfterViewInit() {
 
     this.getAllBrands();
@@ -60,6 +62,8 @@ export class BrandsComponent implements OnInit, AfterViewInit {
     this._PublicService.Delete("Brand", 'DeleteData', Object.Id).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllBrands();
+      this._ToasterService.FireMessagePopUp(1);
+
     });
 
   }
@@ -87,6 +91,8 @@ export class BrandsComponent implements OnInit, AfterViewInit {
     this._PublicService.Add('Brand', 'AddData', this.BrandObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllBrands();
+      this._ToasterService.FireMessagePopUp(1);
+
     });
 
   }

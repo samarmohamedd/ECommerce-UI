@@ -3,7 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IStock } from 'src/app/Interfaces/IStock';
-import { PublicService } from 'src/app/public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 
 @Component({
   selector: 'stock',

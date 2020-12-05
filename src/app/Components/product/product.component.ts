@@ -4,8 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IProduct } from 'src/app/Interfaces/IProduct';
-import { PublicService } from 'src/app/public-service.service';
-
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 @Component({
   selector: 'product',
   templateUrl: './product.component.html',

@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ICategory } from '../../Interfaces/ICategory';
-import { PublicService } from '../../public-service.service';
+import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
+import { ToasterService } from 'src/app/Services/Toaster.Service/toaster.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -25,6 +27,12 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   };
 
   closeResult: string = '';
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    })
+  }
+
 
   displayedColumns: string[] = [
     'Id',
@@ -35,11 +43,13 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   ];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<ICategory>;
-
+  durationInSeconds = 5;
 
   constructor(
     private _PublicService: PublicService
-    , private modalService: NgbModal) {
+    , private modalService: NgbModal
+    , private _snackBar: MatSnackBar
+    , private _ToasterService: ToasterService) {
 
   }
   ngAfterViewInit() {
@@ -57,11 +67,17 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     });
 
   }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
   //Add modal
   AddCategory() {
     this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllCategories();
+      this._ToasterService.FireMessagePopUp(1);
     });
   }
 

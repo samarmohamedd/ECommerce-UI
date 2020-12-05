@@ -44,10 +44,10 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </div>
+
 <ng-template #AddModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Add Category</h4>
-
   </div>
   <div class="modal-body">
     <div class="row">
@@ -55,11 +55,13 @@
         <div class="form-group">
           <mat-form-field class="form-field">
             <mat-label>Name</mat-label>
-            <input matInput type="text" [(ngModel)]="CategoryObject.Name">
+            <input required matInput type="text" #Name="ngModel" [(ngModel)]="CategoryObject.Name">
             <button mat-button *ngIf="CategoryObject.Name" matSuffix mat-icon-button aria-label="Clear"
               (click)="CategoryObject.Name=''">
               <mat-icon>close</mat-icon>
             </button>
+            <div class="alert alert-danger" *ngIf="!Name.valid">Name is required </div>
+
           </mat-form-field>
         </div>
       </div>
@@ -80,8 +82,10 @@
         <div class="form-group">
           <mat-form-field appearance="fill">
             <mat-label>Description</mat-label>
-            <textarea matInput [(ngModel)]="CategoryObject.Descripton"></textarea>
+            <textarea required matInput #Descripton="ngModel" [(ngModel)]="CategoryObject.Descripton"></textarea>
           </mat-form-field>
+          <div class="alert alert-danger" *ngIf="!Descripton.valid">Descripton is required </div>
+
         </div>
       </div>
     </div>
