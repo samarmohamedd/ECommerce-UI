@@ -21,6 +21,15 @@
         <span>My Account</span>
       </button>
     </mat-menu>
+    <span class="form-inline">
+      <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()" [value]="language"
+          [selected]="language === translate.currentLang">
+          {{ language }}
+        </option>
+      </select>
+    </span>
+
   </mat-toolbar>
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #snav [mode]="'push'" opened="true">

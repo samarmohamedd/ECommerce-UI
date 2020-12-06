@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -28,7 +29,18 @@ export class PublicService {
     return this._Http.put(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
   }
 
-  UploadFile(ControllerName: any, MethodName: any, Object: any) {
-    return this._Http.post(this.BaseUrl + ControllerName + '/' + MethodName, Object).pipe(x => x);
+  uploadFile(ControllerName: any, MethodName: any, file: Blob): Observable<HttpEvent<void>> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this._Http.request
+      (new HttpRequest(
+        'POST',
+        this.BaseUrl + ControllerName + '/' + MethodName,
+        formData,
+        {
+          reportProgress: true
+        }));
   }
+
+
 }

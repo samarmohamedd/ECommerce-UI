@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavItem } from '../../../Interfaces/NavItem';
 import { NavService } from 'src/app/Services/nav.service';
 import { VERSION } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'root-nav',
@@ -72,9 +73,17 @@ export class RootNavComponent {
   ];
 
 
-  constructor(private navService: NavService) { }
+  constructor(private navService: NavService,
+    public translate: TranslateService) {
+    translate.addLangs(['en', 'ar']);
+    translate.setDefaultLang('en');
+  }
   ngAfterViewInit() {
     this.navService.appDrawer = this.appDrawer;
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 
 }

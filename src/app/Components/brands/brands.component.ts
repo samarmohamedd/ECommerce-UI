@@ -13,6 +13,7 @@ import { ToasterService } from 'src/app/Services/Toaster.Service/toaster.service
 })
 export class BrandsComponent implements OnInit, AfterViewInit {
   Brands: any;
+  Loader: boolean = true;
   value = 'Clear me';
   BrandObject: IBrand = {
     Name: "",
@@ -47,6 +48,7 @@ export class BrandsComponent implements OnInit, AfterViewInit {
       this.Brands = res;
       this.dataSource = new MatTableDataSource<IBrand>(this.Brands);
       this.dataSource.paginator = this.paginator;
+      this.Loader = false;
 
       debugger;
     });
@@ -63,7 +65,8 @@ export class BrandsComponent implements OnInit, AfterViewInit {
       this.modalService.dismissAll();
       this.getAllBrands();
       this._ToasterService.FireMessagePopUp(1);
-
+    }, (error) => {
+      this._ToasterService.FireMessagePopUp(2);
     });
 
   }
@@ -92,7 +95,8 @@ export class BrandsComponent implements OnInit, AfterViewInit {
       this.modalService.dismissAll();
       this.getAllBrands();
       this._ToasterService.FireMessagePopUp(1);
-
+    }, (error) => {
+      this._ToasterService.FireMessagePopUp(2);
     });
 
   }

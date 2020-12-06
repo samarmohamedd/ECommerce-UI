@@ -1,11 +1,16 @@
 {
-    "Sitetitle": "Angular Multi Language Site",
     "Name": "Name",
-    "NameError": "I am sure you must have a name!",
+    "Descripton": "Descripton",
     "Email": "Email address",
     "PhoneNo": "Phone No",
     "Password": "Password",
-    "Bio": "Enter bio",
-    "TermsConditions": "I agree to terms and conditions.",
-    "Submit": "Submit"
+    "SerialNum": "#",
+   
+    "Delete": "Delete",
+    "Home":  "Home ",
+    "Brand":  "Brand ",
+    "Category":  "Category ",
+    "Loading":"Loading..."
+
+
 }

@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 })
 export class HomeComponent implements OnInit {
   StockItems: any;
+  imageUrl: string = 'http://localhost:44307/Files';
   dataSource!: MatTableDataSource<IStockItems>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -23,9 +24,14 @@ export class HomeComponent implements OnInit {
   getAllStockItems() {
     this._PublicService.getAll("StockItems", 'ViewGetAll').subscribe(res => {
       this.StockItems = res;
+      this.StockItems.forEach((ele: any) => {
+        ele.Image_Name = this.imageUrl + '/ProductImage/' + ele.Image_Name;
+      });
       debugger;
       this.dataSource = new MatTableDataSource<IStockItems>(this.StockItems);
       this.dataSource.paginator = this.paginator;
+    }, error => {
+
     });
 
   }

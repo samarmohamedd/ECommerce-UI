@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IStockItems } from 'src/app/Interfaces/IStockItems';
 import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
+import { ToasterService } from 'src/app/Services/Toaster.Service/toaster.service';
 
 @Component({
   selector: 'stock-items',
@@ -45,10 +45,11 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
   Stocks: any;
   Products: any;
   message: string = '';
-
+  ImageName: string = '';
   constructor(
     private _PublicService: PublicService
-    , private modalService: NgbModal) {
+    , private modalService: NgbModal
+    , private _ToasterService: ToasterService) {
 
   }
   ngAfterViewInit() {
@@ -106,7 +107,7 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
   }
   AddStockItems() {
 
-
+    this.StockItemsObject.Image_Name = this.ImageName;
     this._PublicService.Add('StockItems', 'AddData', this.StockItemsObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllStockItems();
@@ -116,25 +117,10 @@ export class StockItemsComponent implements OnInit, AfterViewInit {
   }
   doucmentName: any;
   onFileChanged(event: any) {
-    debugger;
-    const files = event.target.files;
-    if (files.length === 0)
-      return;
-    this.StockItemsObject.Image_Name = files[0].name;
-    var data = new FormData();
-    debugger;
-    var res = event[0];
+    const file = event.target.files[0];
+    this.ImageName = file.name;
+    this._PublicService.uploadFile('StockItems', 'UplouadImage', file).subscribe();
 
-    data.append(files[0].name, res);
-    debugger;
-    this._PublicService.UploadFile('StockItems', 'UplouadImage', data).subscribe((Response) => {
-
-    });
-    const mimeType = files[0].type;
-    // if (mimeType.match(/image\/*/) == null) {
-    //   this.message = "Only images are supported.";
-    //   return;
-    // }
   }
   //Edit Modal
   updateStockItems(Object: any) {

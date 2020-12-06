@@ -14,6 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 /**
 *Material Modules
  */
@@ -118,6 +119,7 @@ import { StockItemsContainerComponent } from './Components/stock-items/stock-ite
         deps: [HttpClient]
       }
     })
+
   ],
   providers: [PublicService, NavService, ToasterService],
   bootstrap: [AppComponent]
