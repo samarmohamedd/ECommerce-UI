@@ -48,42 +48,46 @@
     <h4 class="modal-title" id="modal-basic-title">Add Brand</h4>
 
   </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field class="form-field">
-            <mat-label> {{'Name' | translate }} </mat-label>
-            <input matInput type="text" [(ngModel)]="BrandObject.Name">
-            <button mat-button *ngIf="BrandObject.Name" matSuffix mat-icon-button aria-label="Clear"
-              (click)="BrandObject.Name=''">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
+  <form #addForm="ngForm" novalidate (ngSubmit)="AddBrand(BrandObject)">
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field class="form-field">
+              <mat-label> {{'Name' | translate }} </mat-label>
+              <input matInput required min="2" type="text" (change)="changeName(addForm)"
+                [(ngModel)]="BrandObject.Name">
+              <button mat-button *ngIf="BrandObject.Name" matSuffix mat-icon-button aria-label="Clear"
+                (click)="BrandObject.Name=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'Descripton' | translate }} </mat-label>
+              <textarea matInput [(ngModel)]="BrandObject.Descripton"></textarea>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>{{'Descripton' | translate }} </mat-label>
-            <textarea matInput [(ngModel)]="BrandObject.Descripton"></textarea>
-          </mat-form-field>
-        </div>
+
+    </div>
+
+    <div class="row text-center  modal-footer">
+      <div class="col-md-offset-3 col-md-3">
+        <button type="button" class="btn btn-outline-success btn-md" [disabled]="!addForm.invalid"
+          data-dismiss="modal">Save</button>
+      </div>
+      <div class=" col-md-3">
+        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
+          (click)="modal.dismiss('Cross click')">Cancel</button>
       </div>
     </div>
-
-  </div>
-
-  <div class="row text-center  modal-footer">
-    <div class="col-md-offset-3 col-md-3">
-      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-        (click)="AddBrand(BrandObject)">Save</button>
-    </div>
-    <div class=" col-md-3">
-      <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-        (click)="modal.dismiss('Cross click')">Cancel</button>
-    </div>
-  </div>
+  </form>
 </ng-template>
 
 

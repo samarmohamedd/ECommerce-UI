@@ -25,7 +25,13 @@ export class HomeComponent implements OnInit {
     this._PublicService.getAll("StockItems", 'ViewGetAll').subscribe(res => {
       this.StockItems = res;
       this.StockItems.forEach((ele: any) => {
-        ele.Image_Name = this.imageUrl + '/ProductImage/' + ele.Image_Name;
+        if (ele.Image_Name != null) {
+          ele.Image_Name = this.imageUrl + '/ProductImage/' + ele.Image_Name;
+
+        } else {
+          ele.Image_Name = null;
+
+        }
       });
       debugger;
       this.dataSource = new MatTableDataSource<IStockItems>(this.StockItems);

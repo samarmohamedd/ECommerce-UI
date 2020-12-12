@@ -5,9 +5,19 @@
     "PhoneNo": "رقم الهاتف",
     "Password": "الرقم السري",
     "SerialNum": "م ",
+    "ParentCategory": "الفئة الرئيسيه",
     "Delete":  "حذف ",
     "Home":  "الرئيسبه ",
     "Brand":  "الماركه ",
     "Category":  "الفئة ",
-    "Loading":"...تحميل"
+    "Loading":"...تحميل",
+    "IsRequired":"مطلوبه",
+    "CreateNewCategory":"أضافة فئة جديده",
+    "Add":"أضافة ",
+    "Edit":"تعديل ",
+    "AreYouSureYouWantToDeleteThisItem":".هل أنت متأكد أنك تريد مسح هذا العنصر",
+    "Save":"حفظ",
+    "Cancel":"ألغاء"
+    
+
 }

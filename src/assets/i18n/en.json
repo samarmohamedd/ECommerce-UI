@@ -5,12 +5,17 @@
     "PhoneNo": "Phone No",
     "Password": "Password",
     "SerialNum": "#",
-   
+    "ParentCategory": "Parent Category",
     "Delete": "Delete",
     "Home":  "Home ",
     "Brand":  "Brand ",
     "Category":  "Category ",
-    "Loading":"Loading..."
-
-
+    "Loading":"Loading...",
+    "IsRequired":"Is Required",
+    "CreateNewCategory":"Create New Category",
+    "Add":"Add Category",
+    "Edit":"Edit Category",
+    "AreYouSureYouWantToDeleteThisItem":"Are You Sure You Want To Delete This Item.",
+    "Save":"Save",
+    "Cancel":"Cancel"
 }

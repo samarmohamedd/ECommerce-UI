@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomFormsModule } from 'ng2-validation';
 import { AppRoutingModule } from './app-routing.module';
@@ -90,6 +90,7 @@ import { StockItemsContainerComponent } from './Components/stock-items/stock-ite
     NgbModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCheckboxModule,
     MatSelectModule,
     MatTableModule,

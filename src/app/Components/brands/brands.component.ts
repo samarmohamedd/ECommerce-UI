@@ -41,7 +41,10 @@ export class BrandsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
   }
-
+  changeName(name: any) {
+    debugger;
+    console.log(name);
+  }
 
   getAllBrands() {
     this._PublicService.getAll("Brand", 'ViewGetAll').subscribe(res => {

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ICategory } from '../../Interfaces/ICategory';
 import { PublicService } from 'src/app/Services/Public.Service/public-service.service';
 import { ToasterService } from 'src/app/Services/Toaster.Service/toaster.service';
@@ -6,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { group } from '@angular/animations';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -26,13 +27,30 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     Descripton: "",
   };
 
-  closeResult: string = '';
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    })
+  AddForm = new FormGroup({
+    Name: new FormControl('', Validators.required),
+    Description: new FormControl('', Validators.required)
+  })
+
+
+  EditForm = new FormGroup({
+    Name: new FormControl('', Validators.required),
+    Description: new FormControl('', Validators.required)
+  })
+
+  get AddName() {
+    return this.AddForm.get("Name");
+  }
+  get AddDescription() {
+    return this.AddForm.get("Description");
   }
 
+  get EditName() {
+    return this.EditForm.get("Name");
+  }
+  get EditDescription() {
+    return this.EditForm.get("Description");
+  }
 
   displayedColumns: string[] = [
     'Id',
@@ -48,7 +66,6 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   constructor(
     private _PublicService: PublicService
     , private modalService: NgbModal
-    , private _snackBar: MatSnackBar
     , private _ToasterService: ToasterService) {
 
   }
@@ -67,17 +84,15 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     });
 
   }
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
-  }
+
   //Add modal
   AddCategory() {
     this._PublicService.Add('Category', 'AddData', this.CategoryObject).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllCategories();
       this._ToasterService.FireMessagePopUp(1);
+    }, (error) => {
+      this._ToasterService.FireMessagePopUp(2);
     });
   }
 
@@ -93,12 +108,16 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       this.Categories = Response;
       this.modalService.dismissAll();
       this.getAllCategories();
+    }, (error) => {
+      this._ToasterService.FireMessagePopUp(2);
     });
 
   }
   openEditModal(content: any, Id: any) {
     const result: ICategory = this.Categories.find((obj: any) => obj.Id === Id);
+    debugger;
     this.CategoryObject = result;
+    debugger;
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -112,6 +131,8 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     this._PublicService.Delete("Category", 'DeleteData', Object.Id).subscribe((Response) => {
       this.modalService.dismissAll();
       this.getAllCategories();
+    }, (error) => {
+      this._ToasterService.FireMessagePopUp(2);
     });
 
   }
@@ -126,7 +147,12 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     }, (reason) => {
     });
   }
+  closeResult: string = '';
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    })
+  }
 
-  //
 
 }

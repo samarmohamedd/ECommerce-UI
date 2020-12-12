@@ -1,35 +1,36 @@
 <!-- <button class="btn btn-info" routerLink="/AddCategory"style="float: right;">Create New Category</button> -->
-<button class="btn btn-info" (click)="openAddModal(AddModal)" style="float: right;">Create New Category</button>
+<button class="btn btn-info" (click)="openAddModal(AddModal)"
+  style="float: right;">{{'CreateNewCategory' |translate}}</button>
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item  " aria-current="page"><a href="/Home">Home</a></li>
-    <li class="breadcrumb-item   " aria-current="page">Category</li>
+    <li class="breadcrumb-item  " aria-current="page"><a href="/Home">{{'Home' |translate}}</a></li>
+    <li class="breadcrumb-item   " aria-current="page">{{'Category' |translate}}</li>
   </ol>
 </nav>
 <div class="example-table-container">
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="Id">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'SerialNum' |translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ParentName">
-      <mat-header-cell *matHeaderCellDef> Parent Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{'ParentCategory' |translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.ParentName}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="Name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'Name' |translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.Name}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="Descripton">
-      <mat-header-cell *matHeaderCellDef> Descripton </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'Descripton' |translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.Descripton}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="Delete">
-      <mat-header-cell *matHeaderCellDef="let element">Delete</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef="let element"> {{'Delete' |translate}}</mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
         <i href="javascript:void(0);" (click)="openDeleteModal(DeleteModal,element)">
           <span class="fa fa-trash"></span>
@@ -45,127 +46,138 @@
 
 </div>
 
+
+
+
 <ng-template #AddModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Category</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{'Add' |translate}}</h4>
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field class="form-field">
-            <mat-label>Name</mat-label>
-            <input required matInput type="text" #Name="ngModel" [(ngModel)]="CategoryObject.Name">
-            <button mat-button *ngIf="CategoryObject.Name" matSuffix mat-icon-button aria-label="Clear"
-              (click)="CategoryObject.Name=''">
-              <mat-icon>close</mat-icon>
-            </button>
-            <div class="alert alert-danger" *ngIf="!Name.valid">Name is required </div>
+    <form [formGroup]="AddForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field class="form-field">
+              <mat-label>{{'Name' |translate}} </mat-label>
+              <input formControlName="Name" matInput type="text" [(ngModel)]="CategoryObject.Name">
+              <button mat-button *ngIf="CategoryObject.Name" matSuffix mat-icon-button aria-label="Clear"
+                (click)="CategoryObject.Name=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="AddName.invalid">{{'Name' |translate}} {{'IsRequired' |translate}}</div>
 
-          </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'ParentCategory' |translate}} </mat-label>
+              <mat-select>
+                <mat-option *ngFor="let pCat of Categories" [value]="pCat.Id">{{pCat.Name}}</mat-option>
+
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>Parent Category</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let pCat of Categories" [value]="pCat.Id">{{pCat.Name}}</mat-option>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'Descripton' |translate}}</mat-label>
+              <textarea formControlName="Description" matInput [(ngModel)]="CategoryObject.Descripton"></textarea>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="AddDescription.invalid">{{'Descripton' |translate}}
+              {{'IsRequired' |translate}}</div>
 
-            </mat-select>
-          </mat-form-field>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>Description</mat-label>
-            <textarea required matInput #Descripton="ngModel" [(ngModel)]="CategoryObject.Descripton"></textarea>
-          </mat-form-field>
-          <div class="alert alert-danger" *ngIf="!Descripton.valid">Descripton is required </div>
-
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
 
   <div class="row text-center  modal-footer">
     <div class="col-md-offset-3 col-md-3">
-      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-        (click)="AddCategory(CategoryObject)">Save</button>
+      <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal" [disabled]="AddForm.invalid"
+        (click)="AddCategory(CategoryObject)">{{'Save' |translate}}</button>
     </div>
     <div class=" col-md-3">
       <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-        (click)="modal.dismiss('Cross click')">Cancel</button>
+        (click)="modal.dismiss('Cross click')">{{'Cancel' |translate}}</button>
     </div>
   </div>
 </ng-template>
 
 <ng-template #EditModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{'Edit' |translate}}</h4>
 
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field class="form-field">
-            <mat-label>Name</mat-label>
-            <input matInput type="text" [(ngModel)]="CategoryObject.Name">
-            <button mat-button *ngIf="CategoryObject.Name" matSuffix mat-icon-button aria-label="Clear"
-              (click)="CategoryObject.Name=''">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
+    <form [formGroup]="EditForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field class="form-field">
+              <mat-label>{{'Name' |translate}} </mat-label>
+              <input matInput type="text" [(ngModel)]="CategoryObject.Name">
+              <button mat-button *ngIf="CategoryObject.Name" matSuffix mat-icon-button aria-label="Clear"
+                (click)="CategoryObject.Name=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="EditName.invalid">{{'Name' |translate}} {{'IsRequired' |translate}}</div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>Parent Category</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let pCat of Categories" [value]="pCat.Id">{{pCat.Name}}</mat-option>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'ParentCategory' |translate}} </mat-label>
+              <mat-select>
+                <mat-option *ngFor="let pCat of Categories" [value]="pCat.Id">{{pCat.Name}}</mat-option>
 
-            </mat-select>
-          </mat-form-field>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>Description</mat-label>
-            <textarea matInput [(ngModel)]="CategoryObject.Descripton"></textarea>
-          </mat-form-field>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'Descripton' |translate}}</mat-label>
+              <textarea matInput [(ngModel)]="CategoryObject.Descripton"></textarea>
+            </mat-form-field>
+            <div class="text-danger" *ngIf="EditDescription.invalid">{{'Descripton' |translate}}
+              {{'IsRequired' |translate}}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
   <div class="row text-center  modal-footer">
     <div class="col-md-offset-3 col-md-3">
       <button type="button" class="btn btn-outline-success btn-md" data-dismiss="modal"
-        (click)="updateCategory(CategoryObject)">Save</button>
+        (click)="updateCategory(CategoryObject)">{{'Save' |translate}}</button>
     </div>
     <div class=" col-md-3">
       <button type="button" class="btn btn-danger btn-md" data-dismiss="modal"
-        (click)="modal.dismiss('Cross click')">Cancel</button>
+        (click)="modal.dismiss('Cross click')">{{'Cancel' |translate}}</button>
     </div>
   </div>
 </ng-template>
 
 <ng-template #DeleteModal let-Dmodal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{'Delete' |translate}}</h4>
 
   </div>
   <div class="modal-body">
     <div class="row">
-      Are you sure ,you want delete this.
+      {{'AreYouSureYouWantToDeleteThisItem' |translate}}
     </div>
 
   </div>
@@ -173,11 +185,11 @@
   <div class="row text-center  modal-footer">
     <div class="col-md-offset-3 col-md-3">
       <button type="button" class="btn btn-outline-success btn-md" data-dismiss="Dmodal"
-        (click)="DeleteCategory(CategoryObject)">Save</button>
+        (click)="DeleteCategory(CategoryObject)">{{'Save' |translate}}</button>
     </div>
     <div class=" col-md-3">
       <button type="button" class="btn btn-danger btn-md" data-dismiss="Dmodal"
-        (click)="Dmodal.dismiss('Cross click')">Cancel</button>
+        (click)="Dmodal.dismiss('Cross click')">{{'Cancel' |translate}}</button>
     </div>
   </div>
 </ng-template>
